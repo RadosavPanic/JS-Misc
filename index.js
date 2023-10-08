@@ -2,9 +2,12 @@ import { printName } from "./callstackexceeded.js";
 import {
   calculatePercentage,
   capitalizeSentence,
+  checkEqualityTypes,
+  countOccurrences,
   randomChoice,
   removeDuplicates,
   sortByCriteria,
+  waitTimer,
 } from "./oneliners.js";
 
 printName(0, 4);
@@ -40,3 +43,14 @@ const videos = [
 ];
 sortByCriteria(videos, "position");
 console.log(videos);
+
+console.log(checkEqualityTypes([1, "2"], [1, 2]));
+console.log(checkEqualityTypes([1, 2], [1, 2]));
+
+const pollResponses = ["Yes", "Yes", "No"];
+const response = "Yes";
+
+console.log(countOccurrences(pollResponses, response));
+
+await waitTimer(3000); // Top level await
+console.log("done");
