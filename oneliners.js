@@ -23,6 +23,16 @@ const countOccurrences = (itemsArr, value) =>
 const waitTimer = async (miliseconds) =>
   new Promise((resolve) => setTimeout(resolve, miliseconds));
 
+// Extracting data from array of objects using key property
+const pluckData = (objects, key) => objects.map((obj) => obj[key]);
+
+// Inserting item using slicing between new item position
+const insertItemAtPosition = (arr, index, newItem) => [
+  ...arr.slice(0, index),
+  newItem,
+  ...arr.slice(index),
+];
+
 export {
   capitalizeSentence,
   calculatePercentage,
@@ -32,4 +42,6 @@ export {
   checkEqualityTypes,
   countOccurrences,
   waitTimer,
+  pluckData,
+  insertItemAtPosition,
 };

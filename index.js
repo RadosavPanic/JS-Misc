@@ -4,6 +4,8 @@ import {
   capitalizeSentence,
   checkEqualityTypes,
   countOccurrences,
+  insertItemAtPosition,
+  pluckData,
   randomChoice,
   removeDuplicates,
   sortByCriteria,
@@ -53,4 +55,14 @@ const response = "Yes";
 console.log(countOccurrences(pollResponses, response));
 
 await waitTimer(3000); // Top level await
-console.log("done");
+console.log("waiting done");
+
+const users = [
+  { name: "John", age: 45 },
+  { name: "Jack", age: 31 },
+];
+const namesOfUsers = pluckData(users, "name");
+console.log(namesOfUsers);
+
+const items = insertItemAtPosition([1, 2, 4, 5], 2, "three");
+console.log(items);
