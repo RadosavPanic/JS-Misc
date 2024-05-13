@@ -5,6 +5,7 @@
   --color-black: #222;
   --color-lighter-black: #333;
   --hover-white: #ccc;
+  --success-color: #60b347;
 }
 
 * {
@@ -23,7 +24,6 @@ body {
   color: #eee;
   background-color: #222;
   user-select: none;
-  /* background-color: #60b347; */
 }
 
 /* HEADER STYLES */
