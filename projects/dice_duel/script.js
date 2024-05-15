@@ -9,6 +9,8 @@ const current1El = document.getElementById("current--1");
 
 const player0ArrowEl = document.getElementById("arrow-active--0");
 const player1ArrowEl = document.getElementById("arrow-active--1");
+const player0CrownEl = document.getElementById("player-crown--0");
+const player1CrownEl = document.getElementById("player-crown--1");
 
 const diceEl = document.querySelector(".dice");
 const btnNew = document.querySelector(".btn--new");
@@ -32,6 +34,8 @@ function init() {
 
   player0El.classList.remove("player--winner");
   player1El.classList.remove("player--winner");
+  player0CrownEl.classList.add("hidden");
+  player1CrownEl.classList.add("hidden");
 
   player0El.classList.add("player--active");
   player1El.classList.remove("player--active");
@@ -41,3 +45,62 @@ function init() {
 }
 
 init();
+
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  currentScore = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  player0El.classList.toggle("player--active");
+  player1El.classList.toggle("player--active");
+  player0ArrowEl.classList.toggle("hidden");
+  player1ArrowEl.classList.toggle("hidden");
+};
+
+btnRoll.addEventListener("click", () => {
+  if (playing) {
+    const dice = Math.trunc(Math.random() * 6) + 1;
+
+    diceEl.classList.remove("hidden");
+    diceEl.src = `./dice_pictures/dice-${dice}.png`;
+
+    if (dice !== 1) {
+      currentScore += dice;
+      document.getElementById(`current--${activePlayer}`).textContent =
+        currentScore;
+    } else {
+      switchPlayer();
+    }
+  }
+});
+
+btnHold.addEventListener("click", () => {
+  if (playing) {
+    scores[activePlayer] += currentScore;
+
+    document.getElementById(`score--${activePlayer}`).textContent =
+      scores[activePlayer];
+
+    if (scores[activePlayer] >= 100) {
+      playing = false;
+      diceEl.classList.add("hidden");
+
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add("player--winner");
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove("player--active");
+
+      document
+        .getElementById(`arrow-active--${activePlayer}`)
+        .classList.add("hidden");
+      document
+        .getElementById(`player-crown--${activePlayer}`)
+        .classList.remove("hidden");
+    } else {
+      switchPlayer();
+    }
+  }
+});
+
+btnNew.addEventListener("click", init);

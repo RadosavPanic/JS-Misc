@@ -54,6 +54,19 @@ main {
   color: #c7365f;
 }
 
+.player-winner-crown {
+  position: absolute;
+  top: 4rem;
+  font-size: 4rem;
+  color: #d4af37;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
 .name {
   position: relative;
   font-size: 4rem;
