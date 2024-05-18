@@ -1,9 +1,3 @@
-const currencies = new Map([
-  ["USD", "United States Dollar"],
-  ["EUR", "Euro"],
-  ["GBP", "Pound sterling"],
-]);
-
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /* arr.slice(?start, ?end):number[] */
@@ -54,6 +48,59 @@ console.log(movements.includes(-400)); // true
 console.log(movements.includes(450, 3)); // false
 console.log(movements.includes(3000, 2)); // true
 
-/* arr.indexOf(searchElement, ?fromIndex):number */
+/* arr.lastIndexOf(searchElement, ?fromIndex):number */
 console.log(movements.indexOf(3000)); // 3
 console.log([250, 10, 15, 400, 700, 250].lastIndexOf(250)); // 5
+
+/* arr.forEach((value, index, array) => void, ?thisArg):void */
+console.time("For of loop");
+for (const [i, movement] of movements.entries()) {
+  movement > 0
+    ? console.log(`Movement ${i + 1}: You deposited ${movement}`)
+    : console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+}
+/* Movement 1: You deposited 200
+   Movement 2: You deposited 450
+   Movement 3: You withdrew 400
+   Movement 4: You deposited 3000
+   Movement 5: You withdrew 650
+   Movement 6: You withdrew 130
+   Movement 7: You deposited 70
+   Movement 8: You deposited 1300 */
+console.timeEnd("For of loop"); // For of loop: 0.304931640625 ms
+
+function checkMovements(movement, index) {
+  if (movement > 0) {
+    console.log(`Movement ${index + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${index + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.time("forEach loop");
+movements.forEach(checkMovements);
+console.timeEnd("forEach loop"); // forEach loop: 0.3310546875 ms
+
+const currencies = new Map([
+  ["USD", "United States Dollar"],
+  ["EUR", "Euro"],
+  ["GBP", "Pound sterling"],
+]);
+
+/* map.forEach((value, key, map)) */
+currencies.forEach((value, key, map) => {
+  console.log(`${key}: ${value}`);
+});
+/* USD: United States Dollar
+   EUR: Euro
+   GBP: Pound sterling */
+
+/* set.forEach((value, value, set)) --> no indexes/keys, only values */
+const currenciesUnique = new Set(["USD", "GBP", "USD", "EUR", "EUR"]);
+
+currenciesUnique.forEach((value, _, map) => {
+  console.log(`Currency: ${value}`);
+});
+/* Currency: USD
+   Currency: GBP
+   Currency: EUR */
