@@ -104,3 +104,53 @@ currenciesUnique.forEach((value, _, map) => {
 /* Currency: USD
    Currency: GBP
    Currency: EUR */
+
+const deposits = movements.filter((mov) => mov > 0);
+const withdrawals = movements.filter((mov) => mov < 0);
+const balance = movements.reduce((acc, cur) => acc + cur, 0);
+
+console.log(deposits); // [200, 450, 3000, 70, 1300]
+console.log(withdrawals); // [-400, -650, -130]
+console.log(balance); // 3840
+
+const maximumValue = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(maximumValue); // 3000
+
+const minimumValue = movements.reduce((acc, mov) => {
+  if (acc < mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(minimumValue); // -650
+
+function calculateAverageHumanAge(dogAges) {
+  const humanAgeArray = dogAges
+    .map((age) => {
+      const humanAge = age <= 2 ? age * 2 : 16 + age * 4;
+      return humanAge;
+    })
+    .filter((ageAdult) => ageAdult > 18);
+
+  const avgHumanAge = humanAgeArray.reduce(
+    (acc, cur, i, arr) => acc + cur / arr.length,
+    0
+  );
+  console.log(avgHumanAge);
+}
+
+const testData1 = [5, 2, 4, 1, 15, 8, 3];
+const testData2 = [16, 6, 10, 5, 6, 1, 4];
+
+calculateAverageHumanAge(testData1);
+calculateAverageHumanAge(testData2);
+
+const calculateAverageHumanAgeArrow = (dogAges) =>
+  dogAges
+    .map((age) => (age <= 2 ? age * 2 : 16 + age * 4))
+    .filter((ageAdult) => ageAdult > 18)
+    .reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
+console.log(calculateAverageHumanAgeArrow(testData1));
+console.log(calculateAverageHumanAgeArrow(testData2));
