@@ -9,11 +9,12 @@ console.log(movements.slice(), [...movements]); // [200, 450, -400, 3000, -650, 
 
 /* arr.splice(start, ?deleteCount, ?replacementElements):number[] --> mutates original array */
 // movements.splice(0, 2); // [-400, 3000, -650, -130, 70, 1300]
-// movements.splice(-1); // [200, 450, -400, 3000, -650, -130, 70]\
+// movements.splice(-1); // [200, 450, -400, 3000, -650, -130, 70]
+console.log(movements.toSpliced(-1)); // -||-, doesn't mutate original array (new method)
 
 /* reverse():number --> mutates original array */
 // movements.reverse(); // [1300, 70, -130, -650, 3000, -400, 450, 200]
-console.log(movements.toReversed()); // -||-
+console.log(movements.toReversed()); // -||-, doesn't mutate original array (new method)
 
 /* arr1.concat(arr2) */
 console.log(movements.concat([1500, 250, 400])); // [200, 450, -400, 3000, -650, -130, 70, 1300, 1500, 250, 400]
@@ -154,3 +155,6 @@ const calculateAverageHumanAgeArrow = (dogAges) =>
 
 console.log(calculateAverageHumanAgeArrow(testData1));
 console.log(calculateAverageHumanAgeArrow(testData2));
+
+/* arr.find(callbackfn => ) */
+console.log(movements.find((mov) => mov < 0)); // -400
