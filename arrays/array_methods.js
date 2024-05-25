@@ -158,3 +158,64 @@ console.log(calculateAverageHumanAgeArrow(testData2));
 
 /* arr.find(callbackfn => ) */
 console.log(movements.find((mov) => mov < 0)); // -400
+
+/* arr.some((value, index, array) => void, ?thisArg):boolean --> returns true if any condition is true (like OR logic operator) */
+console.log(movements.some((mov) => mov > 0)); // true
+console.log(movements.some((mov) => mov === 5000)); // false
+
+/* arr.every((value, index, array) => void, ?thisArg):boolean --> returns true if all conditions are true (like AND logic operator)*/
+console.log(movements.every((mov) => mov > 0)); // false
+console.log(movements.every((mov) => typeof mov === "number")); // true
+
+/* arr.flat(?depth: 1):number[] */
+const arrForFlatting = [[1, 2, 3], [4, 5, 6], 7, 8];
+const arrDeepFlatting = [[15, 52, [10, 14]], [25, [46, 50]], 9, 92];
+
+console.log(arrForFlatting.flat()); // [1, 2, 3, 4, 5, 6, 7, 8]
+console.log(arrDeepFlatting.flat()); // [15, 52, [10, 14], 25, [46, 50], 9, 92] (flattens only 1 layer)
+console.log(arrDeepFlatting.flat(2)); // [15, 52, 10, 14, 25, 46, 50, 9, 92]
+console.log(
+  arrDeepFlatting
+    .flat(2)
+    .map((num) => num * 2 + 10)
+    .reduce((acc, num) => acc + num, 0)
+); // 716
+
+const acc1 = {
+  owner: "John Doe",
+  movements: [500, 300, -100, 1000, 1300, -800],
+};
+
+const acc2 = {
+  owner: "Dan Peterson",
+  movements: [1500, -1000, 200, -50, 400],
+};
+
+const accs = [acc1, acc2];
+
+/* arr.flatMap(callbackfn) --> executes arr.map then arr.flat(1) (common pattern)*/
+const overallBalance = accs
+  .flatMap((acc) => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance); // 3250
+
+/* arr.sort(?compareFn: (a,b) => void):string[]|number[] --> sort is based on strings (alphabetically ordered A-Z)*/
+console.log(["John", "Zach", "Bob", "Maria"].sort()); // ['Bob', 'John', 'Maria', 'Zach']
+
+/* return < 0, A-B (keep order ASC - ASCENDING) */
+console.log(movements.toSorted((a, b) => a - b)); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
+console.log(
+  movements.toSorted((a, b) => {
+    if (a > b) return 1;
+    if (a < b) return -1;
+  })
+); // [-650, -400, -130, 70, 200, 450, 1300, 3000] -->
+
+/* return > 0, B-A (switch order) DESC - DESCENDING */
+console.log(movements.toSorted((a, b) => b - a)); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+console.log(
+  movements.toSorted((a, b) => {
+    if (a > b) return -1;
+    if (a < b) return 1;
+  })
+); // [3000, 1300, 450, 200, 70, -130, -400, -650]
