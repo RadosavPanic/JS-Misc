@@ -262,3 +262,58 @@ console.log(
 /* arr.with(index, value) --> returns a new array with replace value at index */
 const arrToReplace = [1, 2, 3, 4, 5, 6];
 console.log(arrToReplace.with(2, 87)); // [1, 2, 87, 4, 5, 6]
+
+/* exercises */
+// movements: [200, 450, -400, 3000, -650, -130, 70, 1300]
+const sums = movements.reduce(
+  (acc, cur) => {
+    // cur > 0 ? (acc.deposits += cur) : (acc.withdrawals += cur);
+    acc[cur > 0 ? "deposits" : "withdrawals"] += cur;
+    return acc;
+  },
+  { deposits: 0, withdrawals: 0 }
+);
+console.log(sums); // {deposits: 5020, withdrawals: -1180}
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, curFood: 200, owners: ["Matilda"] },
+  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, curFood: 340, owners: ["Michael"] },
+];
+
+dogs.forEach(
+  (dog) => (dog.recFood = Number(dog.weight ** 0.75 * 28).toPrecision(3))
+);
+
+const dogSarah = dogs.find((dog) => dog.owners.includes("Sarah"));
+console.log(
+  `Sarah's dog is eating too ${
+    dogSarah.curFood > dogSarah.recFood ? "much" : "little"
+  }`
+);
+
+const ownersEatTooMuch = dogs
+  .filter((dog) => dog.curFood > dog.recFood)
+  .flatMap((dog) => dog.owners);
+
+const ownersEatTooLittle = dogs
+  .filter((dog) => dog.curFood < dog.recFood)
+  .flatMap((dog) => dog.owners);
+
+console.log(`${ownersEatTooMuch.join(" and ")}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(" and ")}'s dogs eat too little!`);
+
+console.log(dogs.some((dog) => dog.curFood === dog.recFood)); // false
+
+const checkEatingOkay = (dog) =>
+  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+
+console.log(dogs.some(checkEatingOkay)); // true
+
+console.log(dogs.filter(checkEatingOkay)); // {weight: 32, curFood: 340, owners: ['Michael'], recFood: '377'}
+
+const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+const dogsSortedNew = dogs.toSorted((a, b) => a.recFood - b.recFood);
+console.log(dogsSorted); // 133, 192, 284, 377
+console.log(dogsSortedNew); // 133, 192, 284, 377
