@@ -219,3 +219,46 @@ console.log(
     if (a < b) return 1;
   })
 ); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+/* Creating and Filling Arrays */
+console.log([1, 2, 3, 4]);
+console.log(new Array(1, 2, 3, 4));
+
+/* Empty arrays, method: arr.fill(value, ?start, ?end): */
+const empty1 = new Array(7);
+console.log(empty1); // [empty × 7]
+
+console.log(empty1.fill(1, 3, 5)); // [empty × 3, 1, 1, empty × 2]
+console.log(empty1.fill(1)); // [1, 1, 1, 1, 1, 1, 1]
+console.log(empty1.fill(23, 2, 6)); // [1, 1, 23, 23, 23, 23, 1]
+
+/* Array.from(iterable, mapfn: (value, index) => any, ?thisArg) */
+console.log(Array.from({ length: 7 }, () => 1)); // [1, 1, 1, 1, 1, 1, 1]
+console.log(Array.from({ length: 7 }, (_, i) => i + 1)); // [1, 2, 3, 4, 5, 6, 7]
+
+console.log(
+  Array.from({ length: 100 }, () => Math.trunc(Math.random() * 6) + 1)
+); // 100 random dice rolls
+
+/* 
+[6, 4, 1, 2, 4, 4, 4, 4, 5, 2, 5, 4, 3, 5, 6, 3, 
+4, 5, 5, 3, 2, 2, 2, 5, 5, 5, 6, 4, 5, 1, 3, 4, 4, 
+1, 2, 2, 3, 6, 1, 6, 2, 3, 3, 6, 3, 4, 6, 5, 3, 4, 
+6, 3, 5, 2, 2, 2, 3, 3, 4, 1, 6, 5, 3, 2, 3, 6, 3, 
+3, 6, 5, 5, 4, 5, 5, 3, 4, 1, 3, 6, 2, 4, 2, 5, 5, 
+5, 6, 6, 4, 3, 2, 5, 2, 2, 4, 3, 1, 3, 2, 2, 5]
+*/
+
+const movs = document.querySelectorAll(".movements__value");
+console.log(movs); // NodeList(4) [div.movements__value, div.movements__value, div.movements__value, div.movements__value]
+
+const movsUI = Array.from(movs);
+console.log(movsUI); // (4) [div.movements__value, div.movements__value, div.movements__value, div.movements__value]
+
+console.log(
+  movsUI.map((el) => Number(el.textContent.replace("€", "").trimEnd()))
+); // [2000, 400, -350, 720]
+
+/* arr.with(index, value) --> returns a new array with replace value at index */
+const arrToReplace = [1, 2, 3, 4, 5, 6];
+console.log(arrToReplace.with(2, 87)); // [1, 2, 87, 4, 5, 6]
