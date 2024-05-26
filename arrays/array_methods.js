@@ -317,3 +317,44 @@ const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
 const dogsSortedNew = dogs.toSorted((a, b) => a.recFood - b.recFood);
 console.log(dogsSorted); // 133, 192, 284, 377
 console.log(dogsSortedNew); // 133, 192, 284, 377
+
+const fruits = [
+  "banana",
+  "orange",
+  "apple",
+  "kiwi",
+  "strawberry",
+  "watermelon",
+];
+
+/* arr.copyWithin(targetIndex, ?start, ?end) --> mutates original array */
+console.log(fruits.slice().copyWithin(2, 0, 1)); // ['banana', 'orange', 'banana', 'kiwi', 'strawberry', 'watermelon']
+
+console.log(fruits.length); // 6
+
+for (const [key, value] of fruits.entries()) {
+  console.log(key, value);
+}
+/* 
+  0 'banana'
+  1 'orange'
+  2 'apple'
+  3 'kiwi'
+  4 'strawberry'
+  5 'watermelon'
+*/
+
+for (const key of fruits.keys()) {
+  console.log(key);
+} // 0 1 2 3 4 5
+
+for (const value of fruits.values()) {
+  console.log(value);
+} // banana orange apple kiwi strawberry watermelon
+
+/* arr.toString():string --> returns comma separated string (same as .join() without separator specified)*/
+console.log(fruits.toString()); // banana,orange,apple,kiwi,strawberry,watermelon
+
+/* delete arr[index] --> deletes and leaves a hole in array (better use pop, shift, splice..) */
+delete fruits[0];
+console.log(fruits); // [empty, 'orange', 'apple', 'kiwi', 'strawberry', 'watermelon']
