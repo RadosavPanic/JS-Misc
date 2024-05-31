@@ -90,3 +90,20 @@ const daysPassed1 = calcDaysPassed(
   new Date(2037, 3, 24)
 );
 console.log(daysPassed1); // 10
+
+const date3 = new Date();
+console.log(new Intl.DateTimeFormat("en-US").format(date3)); // 5/31/2024
+console.log(new Intl.DateTimeFormat("sr-SP").format(date3)); // 31. 5. 2024.
+
+const options = {
+  year: "numeric",
+  day: "numeric",
+  month: "long", // numeric, long, 2-digit
+  hour: "numeric",
+  minute: "numeric",
+};
+
+console.log(new Intl.DateTimeFormat("en-US", options).format(date3)); // May 31, 2024 at 7:36 PM
+
+options.weekday = "long";
+console.log(new Intl.DateTimeFormat("en-US", options).format(date3)); // Friday, May 31, 2024 at 7:41 PM
