@@ -77,3 +77,16 @@ console.log(`Timestamp since Jan 01 1970:`, date1.getTime()); // 2142253380000
 console.log(`Getting right now timestamp without new keyword:`, Date.now()); // 1717006640874
 
 date1.setFullYear(2024);
+
+// timestamp differentiation
+const date2 = new Date(2037, 10, 19, 15, 23);
+console.log(date2.getTime()); // also can perform +date2 gives timestamp
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (24 * 60 * 60 * 1000);
+
+const daysPassed1 = calcDaysPassed(
+  new Date(2037, 3, 14),
+  new Date(2037, 3, 24)
+);
+console.log(daysPassed1); // 10
