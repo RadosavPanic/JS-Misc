@@ -56,3 +56,31 @@ btnAddAfter.addEventListener("click", () => {
   text.textContent = "DOM Text Inserted (After)";
   header.after(text);
 });
+
+/* Styles */
+message.style.backgroundColor = "#37383d";
+message.style.color = "#fff";
+message.children[0].style.color = "#fff";
+
+console.log(getComputedStyle(message).height); // 63.4px
+
+inputElements[0].style.width = `${
+  Number.parseFloat(getComputedStyle(inputElements[0]).width) - 50
+}px`;
+
+const rootElement = document.documentElement;
+rootElement.style.setProperty("--primary-color", "blue");
+
+btnAddAfter.style.backgroundColor =
+  getComputedStyle(rootElement).getPropertyValue("--primary-color");
+
+inputElements[0].style.setProperty("background-color", "lightgreen");
+
+const labelInput = document.querySelector(".label__input");
+
+labelInput.setAttribute("made-for", "user-first-name");
+console.log(labelInput.getAttribute("made-for")); // user-first-name
+
+// data atributes (in html property has to start with data-), for example in html: data-version-number
+labelInput.dataset.versionNumer = "3.0";
+console.log(labelInput.dataset.versionNumer); // 3.0
