@@ -21,12 +21,38 @@ message.classList.add("cookie-message");
 message.innerHTML = `We use cookies for improved functionality and analytics.
                     <button class="btn btn--close-cookie">Got it!</button>`;
 
-document.body.prepend(message);
 // header.append(message);
+document.body.prepend(message);
+const msgClone = message.cloneNode(true);
+document.body.append(msgClone);
 
-const cookieBtn = document.querySelector(".btn--close-cookie");
-cookieBtn.addEventListener("click", () => {
-  // document.body.removeChild(message);
-  message.parentElement.removeChild(message); // gets parent element and removes selected child node
-  // message.remove(); // removes selected node
+const cookieBtns = document.querySelectorAll(".btn--close-cookie");
+cookieBtns.forEach((btn) =>
+  btn.addEventListener("click", (e) => {
+    e.target.parentElement.remove();
+
+    /* Individual elements removal 
+    document.body.removeChild(message);
+    message.parentElement.removeChild(message); // gets parent element and removes selected child node
+    message.remove(); // removes selected node
+
+    msgClone.parentElement.removeChild(msgClone);
+    msgClone.remove();
+    */
+  })
+);
+
+const text = document.createElement("p");
+text.classList.add("text-inserted");
+
+const btnAddBefore = document.querySelector(".btn--add-before");
+const btnAddAfter = document.querySelector(".btn--add-after");
+
+btnAddBefore.addEventListener("click", () => {
+  text.textContent = "DOM Text Inserted (Before)";
+  header.before(text);
+});
+btnAddAfter.addEventListener("click", () => {
+  text.textContent = "DOM Text Inserted (After)";
+  header.after(text);
 });
