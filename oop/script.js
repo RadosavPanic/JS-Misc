@@ -239,3 +239,62 @@ car3.brake(); // Peugeot going at 105km/h
 car3.accelerate(); // Peugeot going at 125km/h, with a charge of 18%
 car3.chargeBattery(88); // Peugeot's battery is charged to 88%
 car3.accelerate(); // Peugeot going at 145km/h, with a charge of 87%
+
+class Account {
+  // can do protected properties (_owner, _currency), as a convention, but still accessible
+  static className = "Account";
+
+  #owner;
+  #currency;
+  #pin;
+  #movements = [];
+  #locale = navigator.language;
+
+  constructor(owner, currency, pin) {
+    this.#owner = owner;
+    this.#currency = currency;
+    this.#pin = pin;
+  }
+
+  getMovements() {
+    return this.#movements;
+  }
+
+  getOwnerName() {
+    return this.#owner;
+  }
+
+  deposit(value) {
+    this.#movements.push(value);
+    return this;
+  }
+
+  withdraw(value) {
+    this.deposit(-value);
+    return this;
+  }
+
+  #approveLoan(value) {
+    return true;
+  }
+
+  requestLoan(value) {
+    if (this.#approveLoan(value)) {
+      this.deposit(value);
+      console.log(`Loan approved`);
+      return this;
+    }
+  }
+}
+
+const acc1 = new Account("Peter", "EUR", 1111);
+
+acc1.deposit(250);
+acc1.withdraw(140);
+console.log(acc1.getMovements()); // [250, -140]
+
+// Chaining methods by returning 'this' keyword in each of methods
+acc1.deposit(300).withdraw(125).requestLoan(15200).withdraw(4000);
+console.log(acc1.getMovements()); // [250, -140, 300, -125, 15200, -4000]
+
+console.log(Account.className); // Account
