@@ -1,10 +1,12 @@
 "use strict";
 
-const btn = document.querySelector(".btn-country");
+const btnGetCountry = document.querySelector(".btn-country");
+const btnClearCountriesContainer = document.querySelector(".btn-clear");
 const countriesContainer = document.querySelector(".countries");
 
 // XMLHttpRequest, Callback Hell
 const renderCountry = function (country, className = "") {
+  if (!country) return;
   const html = `
     <article class="country ${className}">
         <img class="country__img" src="${country.flags.png}" />
