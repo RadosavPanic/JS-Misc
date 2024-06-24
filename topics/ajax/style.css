@@ -34,6 +34,36 @@ body {
   transition: opacity 1s;
 }
 
+.advice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background-color: #929292;
+  color: white;
+  margin: 1.5rem;
+  padding: 1.5rem;
+}
+
+.advice-text {
+  background-color: aquamarine;
+  color: black;
+  margin: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.btn-advice {
+  display: block;
+  padding: 2rem;
+  margin: 1rem;
+  background-color: blue;
+  color: #f2f2f2;
+  border: none;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+
 .country {
   background-color: #fff;
   box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
@@ -98,7 +128,7 @@ body {
 
 .btn {
   border: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 2rem 5rem;
   border-radius: 0.7rem;
   color: white;
