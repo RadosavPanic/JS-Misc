@@ -83,3 +83,45 @@ const getRandomAdvice = function () {
 };
 
 btnGetAdvice.addEventListener("click", getRandomAdvice);
+
+const getCountryBigData = function (countryName) {
+  return fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+    .then((response) => response.json())
+    .then((country) => {
+      renderCountry(country[0]);
+      return country[0].borders?.[0];
+    })
+    .then((neighbourCode) => {
+      if (!neighbourCode) return;
+      return getNeighbourData(neighbourCode);
+    })
+    .catch((error) => renderError(`Something went wrong: 💥 ${error.message}`));
+};
+
+const whereAmI = function (lat, lng) {
+  fetch(
+    `https://api-bdc.net/data/reverse-geocode?latitude=${lat}&longitude=${lng}&localityLanguage=en&key=bdc_31bc8d10857f477c82da02cf91324901`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        const error = new Error(
+          `Error occured (${response.status})${
+            response.status === 403 ? ": Too many requests!" : ""
+          }`
+        );
+
+        throw error;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      console.log(`You are in ${data.city}, ${data.countryName}`);
+      getCountryBigData(data.countryName);
+    })
+    .catch((error) => console.log(`Error occured:`, error));
+};
+
+whereAmI(52.508, 13.381); // You are in Mumbai, India
+whereAmI(19.037, 72.873); // You are in Cape Town, South Africa
+whereAmI(-33.933, 18.474); // You are in Berlin, Germany
