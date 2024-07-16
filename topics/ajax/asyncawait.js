@@ -40,3 +40,20 @@ const displayLocation = async function () {
     console.log(`[3] Finished getting location`);
   }
 })();
+
+/* Running Promises in Parallel */
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+      getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+      getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+    ]);
+
+    console.log(data.map((d) => d[0].capital[0]));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+get3Countries(`portugal`, `canada`, `tanzania`); // ['Lisbon', 'Ottawa', 'Dodoma']
