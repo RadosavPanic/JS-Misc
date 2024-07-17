@@ -1,6 +1,6 @@
 "use strict";
 
-const imgContainer = document.querySelector(".image-container");
+const imgContainer = document.querySelector(".images");
 
 const lotteryPromise = () => {
   return new Promise(function (resolve, reject) {
@@ -81,7 +81,7 @@ const createImage = function (imgPath) {
   });
 };
 
-let currentImg;
+/* let currentImg;
 createImage("img/img-1.jpg")
   .then((img) => {
     currentImg = img;
@@ -110,3 +110,4 @@ createImage("img/img-1.jpg")
     currentImg.style.display = "none";
   })
   .catch((err) => console.error(err));
+ */

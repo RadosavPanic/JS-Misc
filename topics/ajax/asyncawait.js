@@ -120,3 +120,43 @@ const timeout = function (sec) {
     console.error(error);
   }
 })();
+
+const loadNPause = async function () {
+  try {
+    let img = await createImage("img/img-1.jpg");
+    console.log("Image 1 loaded");
+    await wait(2);
+    img.style.display = "none";
+    await wait(1);
+
+    img = await createImage("img/img-2.jpg");
+    console.log("Image 2 loaded");
+    await wait(2);
+    img.style.display = "none";
+    await wait(1);
+
+    img = await createImage("img/img-3.jpg");
+    console.log("Image 3 loaded");
+    await wait(2);
+    img.style.display = "none";
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// loadNPause();
+
+const loadAll = async function (imgArr) {
+  try {
+    const imgs = imgArr.map(async (img) => await createImage(img));
+
+    const imgsEl = await Promise.all(imgs);
+    console.log(imgsEl);
+
+    imgsEl.forEach((img) => img.classList.add("parallel"));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+loadAll(["img/img-1.jpg", "img/img-2.jpg", "img/img-3.jpg"]);
