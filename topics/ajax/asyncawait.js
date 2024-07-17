@@ -50,10 +50,73 @@ const get3Countries = async function (c1, c2, c3) {
       getJSON(`https://restcountries.com/v3.1/name/${c3}`),
     ]);
 
-    console.log(data.map((d) => d[0].capital[0]));
+    console.log(data.map((d) => d[0].capital[0])); // Resolves Promise when all are resolved, or rejects if any of them is rejected
   } catch (error) {
     console.error(error);
   }
 };
 
 get3Countries(`portugal`, `canada`, `tanzania`); // ['Lisbon', 'Ottawa', 'Dodoma']
+
+/* Promise.race */
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://restcountries.com/v3.1/name/italy`),
+    getJSON(`https://restcountries.com/v3.1/name/egypt`),
+    getJSON(`https://restcountries.com/v3.1/name/mexico`),
+  ]);
+
+  console.log(res[0]); // mexico (this time it took the least ms to fetch, next time it can be different)
+})();
+
+/* Timeout for Promise taking too long */
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error("Request took too long"));
+    }, sec * 1000);
+  });
+};
+
+(async function () {
+  try {
+    const res = await Promise.race([
+      getJSON(`https://restcountries.com/v3.1/name/serbia`),
+      timeout(1),
+    ]);
+
+    console.log(res[0]); // first settled Promise returned (no matter if it's resolved/rejected)
+  } catch (err) {
+    console.error(err);
+  }
+})();
+
+/* Promise.allSettled */
+(async function () {
+  try {
+    const res = await Promise.allSettled([
+      Promise.resolve("[Promise.allSettled]: Resolved 1"),
+      Promise.reject("[Promise.allSettled]: Rejected 1"),
+      Promise.resolve("[Promise.allSettled]: Resolved 2"),
+    ]);
+
+    console.log(res); // Array of Promises returned when all are settled (no matter if they're resolved/rejected)
+  } catch (error) {
+    console.error(error);
+  }
+})();
+
+/* Promise.any */
+(async function () {
+  try {
+    const res = await Promise.any([
+      Promise.reject("[Promise.any]: Rejected 1"),
+      Promise.reject("[Promise.any]: Rejected 2"),
+      Promise.resolve("[Promise.any]: Resolved 1"),
+    ]);
+
+    console.log(res); // First resolved (fulfilled) Promise returned
+  } catch (error) {
+    console.error(error);
+  }
+})();
