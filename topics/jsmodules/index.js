@@ -1,6 +1,7 @@
 // import { addToCart, totalPrice as price, totalQuantity as quantity } from "./shoppingCart.js";
 // import addNumbers, {addToCart, totalPrice, totalQuantity} from './shoppingCart.js';
 import * as ShoppingCart from "./shoppingCart.js";
+import cloneDeep from "./node_modules/lodash-es/cloneDeep.js";
 
 ShoppingCart.addToCart("grapefruit", 3);
 
@@ -38,3 +39,23 @@ const ShoppingCart2 = (function () {
 
 ShoppingCart2.addToCart("apple", 4);
 ShoppingCart2.addToCart("pizza", 2);
+
+/* Lodash */
+const state = {
+  cart: [
+    { product: "bread", quantity: 5 },
+    { product: "pizza", quantity: 3 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state); // shallow copy
+const stateCloneDeep = cloneDeep(state); // deep copy from lodash
+
+console.log(stateClone); // loggedIn: true
+console.log(stateCloneDeep); // loggedIn: True
+
+state.user.loggedIn = false;
+
+console.log(stateClone); // loggedIn: false, creates shallow copy, so changing original state object also changes a clone (not recommended)
+console.log(stateCloneDeep); // loggedIn: true, clone object has its own reference
