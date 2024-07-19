@@ -1,7 +1,11 @@
 // import { addToCart, totalPrice as price, totalQuantity as quantity } from "./shoppingCart.js";
 // import addNumbers, {addToCart, totalPrice, totalQuantity} from './shoppingCart.js';
-import * as ShoppingCart from "./shoppingCart.js";
-import cloneDeep from "./node_modules/lodash-es/cloneDeep.js";
+import * as ShoppingCart from "./shoppingCart";
+import cloneDeep from "lodash-es/cloneDeep";
+
+if (module.hot) {
+  module.hot.accept();
+}
 
 ShoppingCart.addToCart("grapefruit", 3);
 
@@ -14,8 +18,10 @@ const getLastPost = async function () {
 };
 
 /* Top-level Await */
-const lastPost = await getLastPost();
-console.log(lastPost);
+(async function () {
+  const lastPost = await getLastPost();
+  console.log(lastPost);
+})();
 
 /* Module Pattern (using IIFE and Closures) --> used before ES6 modules existed */
 const ShoppingCart2 = (function () {
