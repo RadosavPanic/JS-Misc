@@ -1,4 +1,4 @@
-const budget = [
+const budget = Object.freeze([
   { value: 250, description: "Sold old TV 📺", user: "jonas" },
   { value: -45, description: "Groceries 🥑", user: "jonas" },
   { value: 3500, description: "Monthly salary 👩‍💻", user: "jonas" },
@@ -7,45 +7,60 @@ const budget = [
   { value: -20, description: "Candy 🍭", user: "matilda" },
   { value: -125, description: "Toys 🚂", user: "matilda" },
   { value: -1800, description: "New Laptop 💻", user: "jonas" },
-];
+]);
 
-const spendingLimits = {
+const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
+});
+
+const getLimit = (user, userLimits) => userLimits?.[user] ?? 0;
+
+const addExpense = function (options, value, description, user = "jonas") {
+  const userSelected = user.toLowerCase();
+  const { state, limits } = options;
+
+  return value <= getLimit(userSelected, limits)
+    ? [...state, { value: -value, description, user: userSelected }]
+    : state;
 };
 
-const getLimit = (user) => spendingLimits?.[user] ?? 0;
-
-const addExpense = function (value, description, user = "Jonas") {
-  user = user.toLowerCase();
-
-  if (value <= getLimit(user)) {
-    budget.push({ value: -value, description, user });
-  }
+const checkExpenses = function (state, limits) {
+  return state.map((entry) => {
+    return entry.value < -getLimit(entry.user, limits)
+      ? { ...entry, flag: "limit" }
+      : entry;
+  });
 };
 
-addExpense(10, "Pizza 🍕");
-addExpense(100, "Going to movies 🍿", "Matilda");
-addExpense(200, "Stuff", "Jay");
+const newBudget1 = addExpense(
+  {
+    state: budget,
+    limits: spendingLimits,
+  },
+  10,
+  "Pizza 🍕"
+);
 
-console.log(budget);
+const newBudget2 = addExpense(
+  {
+    state: newBudget1,
+    limits: spendingLimits,
+  },
+  100,
+  "Going to movies 🍿",
+  "Matilda"
+);
 
-const checkExpenses = function () {
-  for (const entry of budget)
-    if (entry.value < -getLimit(entry.user)) entry.flag = "limit";
+const finalBudget = checkExpenses(newBudget2, spendingLimits);
+
+const logBigExpenses = function (state, bigLimit) {
+  const bigExpenses = state
+    .filter((entry) => entry.value <= -bigLimit)
+    .map((entry) => entry.description.slice(-2))
+    .join(" / ");
+
+  console.log(bigExpenses);
 };
 
-checkExpenses();
-console.log(budget);
-
-const logBigExpenses = function (bigLimit) {
-  let output = "";
-  for (const entry of budget)
-    output +=
-      entry.value <= -bigLimit ? `${entry.description.slice(-2)} / ` : ""; // Emojis are 2 chars
-
-  output = output.slice(0, -2); // Remove last '/ '
-  console.log(output);
-};
-
-logBigExpenses(500);
+logBigExpenses(finalBudget, 500);
