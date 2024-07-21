@@ -65,3 +65,10 @@ state.user.loggedIn = false;
 
 console.log(stateClone); // loggedIn: false, creates shallow copy, so changing original state object also changes a clone (not recommended)
 console.log(stateCloneDeep); // loggedIn: true, clone object has its own reference
+
+/* Polyfiling */
+import "core-js/stable";
+// import "core-js/stable/array/find";
+
+// Polyfiling async functions
+import "regenerator-runtime/runtime";
